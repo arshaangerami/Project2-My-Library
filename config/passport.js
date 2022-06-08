@@ -1,7 +1,6 @@
 const passport = require('passport');
-
-
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const User = require('../models/user')
 
 
 // new code below
@@ -11,17 +10,46 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile)
+    // console.log(profile)
+    User.findOne({'googleId':profile.id},function(err,user){
+      //console.log('before error')
+      if(err) return cb(err)
+       //console.log('after error')
+
+      if(user){
+        //console.log('user exists')
+        return cb(null,user)
+      }else{
+        const newUser = createNewUser(profile)
+        newUser.save(function(err){
+          if(err) return cb(err)
+          return cb(null,newUser)
+        })
+
+      }
+
+    })
     
     }
-
-  
 ));
 
-passport.serializeUser(function(student, done) {
+function createNewUser(profile){
+   return new User({
+    googleId : profile.id,
+    email:profile.email,
+    display:profile.displayName,
+    isAdmin:false
+  })
+
+}
+
+passport.serializeUser(function(user, done) {
+  return done(null,user)
+
     
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function(user, done) {
+  return done(null,user)
    
   })
