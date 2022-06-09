@@ -6,6 +6,7 @@ const logger = require('morgan');
 const passport = require('passport')
 const cookieSession =  require('cookie-session')
 const sessions = require('express-session');
+const bodyParser = require('body-parser')
 
 
 const authRouter = require('./routes/auth')
@@ -32,6 +33,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended : false}))
+app.use(bodyParser.json())
+
 
 app.use(sessions({
   secret:process.env.SESSION_SECRET,

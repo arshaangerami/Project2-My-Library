@@ -9,7 +9,31 @@
 </head>
 <body>
     <%-  include('navbar') %> 
-    <h1> <%= user.name %> Welcome to my Library</h1>
+
+    <form action="/dashboard/books/add" method="POST" enctype="multipart/form-data">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" name="author" placeholder="Author">
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" id="description"  name="description" placeholder="Description">
+        </div>
+
+        <input name="image" class="btn" type="file"/> 
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      
+
+
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

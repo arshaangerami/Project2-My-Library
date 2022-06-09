@@ -36,8 +36,8 @@ passport.use(new GoogleStrategy({
 function createNewUser(profile){
    return new User({
     googleId : profile.id,
+    name : profile.displayName,
     email:profile.email,
-    display:profile.displayName,
     isAdmin:false
   })
 

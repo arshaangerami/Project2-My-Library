@@ -9,7 +9,24 @@
 </head>
 <body>
     <%-  include('navbar') %> 
-    <h1> <%= user.name %> Welcome to my Library</h1>
+
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" src=<%= '/booksimg/' + book.image.name %>  alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title"><%= book.title %></h5>
+        <p class="card-text"><%= book.description %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= book.author %></li>
+       
+        </ul>
+        <div class="card-body">
+        <a href="#" class="card-link">Edit</a>
+        <a href="#" class="card-link">Delete</a>
+        <a href="#" class="card-link">Add comment</a>
+        </div>
+    </div>
+    
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
