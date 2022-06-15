@@ -13,7 +13,7 @@ const bookSchema = new mongoose.Schema({
         name: String
     },
     owner: {type :mongoose.Schema.Types.ObjectId , ref : 'User'},
-    commments: [commentSchema]
+    comments: [commentSchema]
     
 
 })

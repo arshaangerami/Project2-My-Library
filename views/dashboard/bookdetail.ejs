@@ -10,22 +10,49 @@
 <body>
     <%-  include('navbar') %> 
 
-    <div class="card" style="width: 18rem;margin: 10px">
-        <img class="card-img-top" src=<%= '/booksimg/' + book.image.name %>  alt="Card image cap">
-        <div class="card-body">
-        <h5 class="card-title"><%= book.title %></h5>
-        <p class="card-text"><%= book.description %></p>
-        </div>
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= book.author %></li>
-       
-        </ul>
-        <div class="card-body">
-        <a href="#" class="card-link">Edit</a>
-        <a href="#" class="card-link">Delete</a>
-        <a href="#" class="card-link">Add comment</a>
+    <div class="d-flex align-content-center flex-wrap justify-content-around" style="margin: 20px;"></div>
+
+        <div class="card" style="width: 18rem;margin: 10px">
+            <img class="card-img-top" src=<%= '/booksimg/' + book.image.name %>  alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Title: <%= book.title %></h5>
+                <p class="card-text">Discription: <%= book.description %></p>
+                <p class="card-text">Author: <%=  book.author %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% if(book.comments.length){ %> 
+
+                    <% book.comments.forEach(comment => { %> 
+
+                       <li class="list-group-item"><%= comment.text %>
+                        <form action="/dashboard/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <input type="submit" value="Delete" class="card-link float-right">
+                        </form>
+                        </li>
+
+                    <% })  %> 
+                <% } else{ %>   
+
+                    <li class="list-group-item text-center">No comments yet</li>
+
+
+                 <% } %> 
+         
+            </ul>
+            <div class="card-body">
+                <form method="POST" action="/dashboard/books/<%= book._id %>/comments">
+                    <div class="form-group row" >
+                        <input type="text" class="form-control" name="text">
+                        <input type="submit" class="btn btn-primary" value="Add comment">
+                    </div>
+                </form>
+            </div>
+
+           
         </div>
     </div>
+    
+
     
 
 

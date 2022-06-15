@@ -1,4 +1,5 @@
 const Book = require('../models/book')
+const user = require('../models/user')
 
 function indexHandler(req,res){
     console.log(req.user)
@@ -34,15 +35,38 @@ function addbookPostHandler(req,res){
 }
 
 function allBookGetHandler(req,res){
-    Book.find({},(err,books)=>{
-        if(err){
-            res.status(400).json(err)
-            return
-        }
-        res.render('dashboard/allbooks',{ books})
+    let query = null
+    if(req.query.search){
+         query = Book.find({title:new RegExp(req.query.search) })
+    }else {
+         query = Book.find({})
 
-    })
-}
+    }
+    query.exec((err,books) => {
+        if(err){
+                    res.status(400).json(err)
+                    return
+                }
+                res.render('dashboard/books',{ 
+                    "books": books,
+                    isMyBookPage : false
+                })
+            })
+    }
+
+
+
+
+
+    // Book.find({},(err,books)=>{
+    //     if(err){
+    //         res.status(400).json(err)
+    //         return
+    //     }
+    //     res.render('dashboard/books',{ books})
+
+    // })
+
 
 function bookDetailHandler(req,res){
     Book.findById(req.params.id,(err,book)=>{
@@ -55,10 +79,80 @@ function bookDetailHandler(req,res){
     
 }
 
+function checkoutHandler(req,res){
+   
+    Book.findById(req.params.bookId, (err,book)=>{
+        if(req.query.checkout === 'true'){
+            book.owner = req.user._id
+
+        }else{
+            book.owner = null
+        }
+
+        try{
+        book.save().then((b)=>{
+
+                res.redirect('/dashboard/books/mybook')
+              })
+            }catch(e){
+                console.log(e)
+            }
+
+    })
+//     Book.findByIdAndUpdate(req.params.bookId,{owner :req.user._id} ,(err,book)=>{
+//         console.log(book)
+//         if(err){
+//                     res.status(400).json(err)
+//                     return
+//                 }
+//                 // book.owner = req.user._id
+//                 // book.save((err,book)=>{
+
+//                     res.redirect('/dashboard/mybook')
+//                 // })
+        
+//             })
+
+}
+
+function myBookHandler(req,res){
+    console.log('in my books')
+    // User.findById(req.user._id ,(err,user)=>{
+
+   
+      Book.find({ owner:req.user._id},(err,books) => {
+          if(err){
+             res.status(400).json(err)
+             return
+        }
+            res.render('dashboard/books',{
+                "books":books,
+                "isMyBookPage":true
+            })
+    })
+// } )
+
+}
+
+function deleteBookHandler(req,res){
+    Book.findByIdAndDelete(req.params.bookId,(err,book)=>{
+        res.redirect('/dashboard/books')
+    })
+
+}
+
+
+
+
 module.exports = {
     indexHandler,
     addBookGetHandler,
     addbookPostHandler,
     allBookGetHandler,
-    bookDetailHandler
+    bookDetailHandler,
+    checkoutHandler,
+    myBookHandler,
+    deleteBookHandler,
+    
+   
 }

@@ -6,8 +6,6 @@ const path = require('path')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // const booksImgPath = path.resolve(__dirname,'../public/booksimg' )
-        // console.log(booksImgPath)
         cb(null, './public/booksimg')
         
     },

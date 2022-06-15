@@ -14,7 +14,7 @@
 
       <%  books.forEach(book => {%>
 
-      <div class="card" style="width: 18rem;margin: 10px">
+      <div class="card" style="width: 18rem;margin: 20px">
           <img class="card-img-top" src=<%= '/booksimg/' + book.image.name %>  alt="Card image cap">
           <div class="card-body">
           <h5 class="card-title"><%= book.title %></h5>
@@ -24,9 +24,28 @@
           <li class="list-group-item"><%= book.author %></li>
          
           </ul>
+
           <div class="card-body">
-          <a href="#" class="card-link">Checkout</a>
-          <a href=<%= '/dashboard/books/'+ book._id %>  class="card-link">View</a>
+            <% if(isMyBookPage) { %>
+
+                <form action="/dashboard/books/<%= book._id %>/checkout?_method=PATCH&checkout=false"  method="POST">
+                    <input type="submit" class="card-link" value="UnCheckout" />
+                </form>
+
+            <% } else {%>  
+
+                <form action="/dashboard/books/<%= book._id %>/checkout?_method=PATCH&checkout=true"  method="POST">
+                    <input type="submit" class="card-link" value="Checkout" />
+                </form>
+                
+                <a href=<%= '/dashboard/books/'+ book._id %>  class="card-link">View</a>
+
+                <form action="/dashboard/books/<%= book._id %>?_method=DELETE" method="POST">
+                    <input type="submit" value="Delete" class="card-link text-danger"/>
+                </form>
+                
+            <% } %> 
+              
           
           </div>
       </div>
