@@ -37,7 +37,7 @@ function addbookPostHandler(req,res){
 function allBookGetHandler(req,res){
     let query = null
     if(req.query.search){
-         query = Book.find({title:new RegExp(req.query.search) })
+         query = Book.find({title:new RegExp(req.query.search , 'i') })
     }else {
          query = Book.find({})
 

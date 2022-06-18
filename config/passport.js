@@ -3,13 +3,14 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../models/user')
 
 
-// new code below
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK
   },
   function(accessToken, refreshToken, profile, cb) {
+    // a user has logged in with OAuth...
     // console.log(profile)
     User.findOne({'googleId':profile.id},function(err,user){
       //console.log('before error')
@@ -33,6 +34,7 @@ passport.use(new GoogleStrategy({
     }
 ));
 
+//We have a new user via oAuth!
 function createNewUser(profile){
    return new User({
     googleId : profile.id,

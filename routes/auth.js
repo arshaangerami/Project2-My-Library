@@ -15,8 +15,10 @@ router.get('/google/callback',passport.authenticate(
         successRedirect:'/dashboard',
         failureRedirect:'/'
     }
-))  
+)) 
 
+
+// OAuth logout route
 router.get('/logout', logOut)
 
 
