@@ -60,16 +60,6 @@ function allBookGetHandler(req,res){
 
 
 
-    // Book.find({},(err,books)=>{
-    //     if(err){
-    //         res.status(400).json(err)
-    //         return
-    //     }
-    //     res.render('dashboard/books',{ books})
-
-    // })
-
-
 function bookDetailHandler(req,res){
     Book.findById(req.params.id,(err,book)=>{
         if(err){
