@@ -1,9 +1,8 @@
-// //config middleware
-
 const multer = require('multer')
 const path = require('path')
 
 
+// //config middleware
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/booksimg')

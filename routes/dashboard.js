@@ -8,15 +8,15 @@ const upload = require('../middlewares/upload')
 
 router.get('/', isLogedIn , dashboardCtrl.indexHandler)
 
+
 router.get('/books/add', isLogedIn, dashboardCtrl.addBookGetHandler)
 
 router.post('/books/add', isLogedIn , upload.single('image'),dashboardCtrl.addbookPostHandler)
 
+
 router.get('/books', isLogedIn , dashboardCtrl.allBookGetHandler)
 
-
 router.patch('/books/:bookId/checkout', isLogedIn, dashboardCtrl.checkoutHandler)
-
 
 router.get('/books/mybook',isLogedIn , dashboardCtrl.myBookHandler)
 

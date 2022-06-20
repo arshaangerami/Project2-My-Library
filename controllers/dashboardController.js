@@ -1,6 +1,7 @@
 const Book = require('../models/book')
 const user = require('../models/user')
 
+
 function indexHandler(req,res){
     console.log(req.user)
     res.render('dashboard/dashboard' , {'user':req.user})
@@ -33,6 +34,7 @@ function addbookPostHandler(req,res){
    })
 
 }
+
 
 function allBookGetHandler(req,res){
     let query = null

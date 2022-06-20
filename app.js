@@ -23,7 +23,7 @@ require('dotenv').config();
 
 // connect to mongodb
 require('./config/database')
-
+//Config passport
 require('./config/passport')
 
 // view engine setup
