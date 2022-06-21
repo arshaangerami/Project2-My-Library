@@ -25,25 +25,24 @@
                     <% book.comments.forEach(comment => { %> 
 
                        <li class="list-group-item"><%= comment.text %>
-                        <form action="/dashboard/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                            <input type="submit" value="Delete" class="card-link float-right">
-                        </form>
-                        </li>
+                            <form action="/dashboard/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" value="Delete" class="card-link float-right" >
+                            </form>
+                       </li>
 
                     <% })  %> 
                 <% } else{ %>   
 
-                    <li class="list-group-item text-center">No comments yet</li>
-
+                       <li class="list-group-item text-center">No comments yet</li>
 
                  <% } %> 
          
             </ul>
             <div class="card-body">
                 <form method="POST" action="/dashboard/books/<%= book._id %>/comments">
-                    <div class="form-group row" >
+                    <div class="form-group row d-flex justify-content-center" >
                         <input type="text" class="form-control" name="text">
-                        <input type="submit" class="btn btn-primary" value="Add comment">
+                        <input style="margin-top: 5px;" type="submit" class="btn btn-primary" value="Add comment">
                     </div>
                 </form>
             </div>

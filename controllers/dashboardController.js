@@ -44,6 +44,7 @@ function allBookGetHandler(req,res){
          query = Book.find({})
 
     }
+    //execute the query
     query.exec((err,books) => {
         if(err){
                     res.status(400).json(err)
@@ -58,8 +59,6 @@ function allBookGetHandler(req,res){
 
 
 
-
-
 function bookDetailHandler(req,res){
     Book.findById(req.params.id,(err,book)=>{
         if(err){
@@ -67,9 +66,9 @@ function bookDetailHandler(req,res){
             return
         }
         res.render('dashboard/bookdetail',{book})
-    })
-    
+    }) 
 }
+
 
 function checkoutHandler(req,res){
    
@@ -91,24 +90,13 @@ function checkoutHandler(req,res){
             }
 
     })
-//     Book.findByIdAndUpdate(req.params.bookId,{owner :req.user._id} ,(err,book)=>{
-//         console.log(book)
-//         if(err){
-//                     res.status(400).json(err)
-//                     return
-//                 }
-//                 // book.owner = req.user._id
-//                 // book.save((err,book)=>{
 
-//                     res.redirect('/dashboard/mybook')
-//                 // })
-        
-//             })
 
 }
 
+
 function myBookHandler(req,res){
-    console.log('in my books')
+    //console.log('in my books')
     // User.findById(req.user._id ,(err,user)=>{
 
    

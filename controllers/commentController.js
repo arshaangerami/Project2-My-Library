@@ -1,7 +1,7 @@
 const Book = require('../models/book')
 
 function addCommentHandler(req,res){
-    console.log(req.params.bookId)
+    // console.log(req.params.bookId)
     Book.findById(req.params.bookId , (err,book)=>{
         book.comments.push({"text" :req.body.text})
         book.save((err,book,n)=>{
@@ -10,6 +10,7 @@ function addCommentHandler(req,res){
     })
 
 }
+
 
 function deleteCommentHandler(req,res){
     Book.findById(req.params.bookId,(err,book)=>{
